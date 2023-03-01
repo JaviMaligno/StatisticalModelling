@@ -10,6 +10,7 @@
 
 # The data are in the file Stackloss.txt on KEATS and you must first download them in your working directory. 
 # Read the data in again
+setwd("Z:\\GitHub\\StatisticalModelling")
 
 Data<-read.table("Stackloss.txt",header=TRUE)
 head(Data)
@@ -65,7 +66,17 @@ AIC(ModelFull)
 
 # Optional: Try listing all the possible models 
 # based on this 3 predictors and choose the best one based on AIC.
+ModelNull<-lm(Stkloss~1)
+ModelAir <-lm(Stkloss~Air)
+ModelAcid <-lm(Stkloss~Acid)
+ModelTempAir <-lm(Stkloss~Temp+Air)
+ModelTempAcid <-lm(Stkloss~Temp+Acid)
 
+AIC(ModelNull)
+AIC(ModelAir)
+AIC(ModelAcid)
+AIC(ModelTempAir)
+AIC(ModelTempAcid)
 
 # As seen in the previous practical, predictive R^2 is not
 # easily available but needs to be computed.
@@ -89,7 +100,7 @@ pred.R2<-function(model){
 pred.R2(ModelFull)
 pred.R2(ModelRed)
 pred.R2(Model2)
-
+pred.R2(ModelTempAir)
 
 # Discussion point 4: which one is better?
 
@@ -112,5 +123,5 @@ plot(Model.best)
 
 # Do you see any issue with the model assumptions?
 
-#the first plot shows a pattern that for possitive values the residual is greater an viceversa, so assumptions of normality, indepence, homostatisticity etc may be worng, also the data set is small
+#the first plot shows a pattern that for possitive values the residual is greater an viceversa, so assumptions of normality, independence, homoscedasticity etc may be wrong, also the data set is small
 # cook distance tells if some point has too much influence, in the lot there is one point that is way lower than the others
