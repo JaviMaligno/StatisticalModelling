@@ -42,3 +42,17 @@ plot(P, posterior3, type = "l")
 
 posterior3up <- posterior3 *  evidence
 plot(P, posterior3up, type = "l")
+
+
+posterior <- posterior/sum(posterior) #normalizing to get probability distribution
+cumulative <- cumsum(posterior)
+plot(P, posterior, type = "l")
+
+#0.95 confidence region
+lower <- P[max(which(cumulative < 0.025))]
+upper <- P[min(which(cumulative > 1- 0.025))]
+plot(P, posterior, type = "l")
+abline(v=lower, col = "red")
+abline(v=upper, col = "red")
+
+
